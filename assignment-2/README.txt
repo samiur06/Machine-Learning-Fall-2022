@@ -1,4 +1,4 @@
-Dependencies required: numpy, pandas, matplotlib libraries
+Dependencies required: numpy, matplotlib libraries
 
 question 2 is answered in the IPython Notebook.
 
