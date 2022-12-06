@@ -7,8 +7,8 @@
 import numpy as np
 
 def bin_info(location, 
-             first_bin, 
-             last_bin,
+             start, 
+             stop,
              bin_size,
             ):
     
@@ -19,8 +19,8 @@ def bin_info(location,
 #     The size of the table should remain the same, 
 #     if not the function will give an error 
 
-    bin_width = (last_bin - first_bin)/(bin_size - 1)
-    bin_full = np.arange(first_bin, last_bin + bin_width, bin_width)
+    bin_width = (stop - start)/bin_size
+    bin_full = np.arange(start + bin_width, stop + bin_width, bin_width)
     
     x = np.zeros(bin_size)
     b = np.zeros(bin_size)
@@ -29,17 +29,17 @@ def bin_info(location,
     for k in range(len(true_train)): 
         true_val = true_train[k]
         meas_val = meas_train[k]
-#         if greater than max(bin_full) value (BEYOND the range), 
+#         if greater than stop value (BEYOND the range), 
 #         put it in the last bin
-        if (true_val>=max(bin_full)):
+        if (true_val>=stop):
             true_val = (bin_full[-1] + bin_full[-2])/2
-        if (meas_val>=max(bin_full)):
+        if (meas_val>=stop):
             meas_val = (bin_full[-1] + bin_full[-2])/2
 #         if falls behind the first edge of the first bin (BELOW the range), 
 #         put it in the first bin
-        if (true_val<=min(bin_full)-bin_width):
+        if (true_val<=start):
             true_val = (bin_full[-1] + bin_full[-2])/2
-        if (meas_val<=min(bin_full)-bin_width):
+        if (meas_val<=start):
             meas_val = (bin_full[-1] + bin_full[-2])/2
             
 #         find the bin number and add counts to vectors x, b and matrix A
